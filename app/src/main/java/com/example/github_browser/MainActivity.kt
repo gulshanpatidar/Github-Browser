@@ -9,6 +9,7 @@ import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.example.github_browser.ui.AppNavigation
+import com.example.github_browser.ui.components.ScaffoldUse
 import com.example.github_browser.ui.theme.GithubBrowserTheme
 
 class MainActivity : ComponentActivity() {

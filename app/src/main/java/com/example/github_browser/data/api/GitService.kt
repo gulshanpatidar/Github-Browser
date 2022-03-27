@@ -13,11 +13,11 @@ interface GitService {
 
     suspend fun getRepos(username: String, repoName: String): Resource<GitRepoResponse>
 
-    suspend fun getBranches(username: String, repoName: String): List<BranchResponseItem>
+    suspend fun getBranches(username: String, repoName: String): Resource<List<BranchResponseItem>>
 
-    suspend fun getIssues(username: String, repoName: String): List<IssueResponseItem>
+    suspend fun getIssues(username: String, repoName: String): Resource<List<IssueResponseItem>>
 
-    suspend fun getCommits(username: String, repoName: String): List<CommitResponseItem>
+    suspend fun getCommits(username: String, repoName: String): Resource<List<CommitResponseItem>>
 
     companion object {
         fun create(): GitService {
@@ -27,7 +27,10 @@ interface GitService {
                         level = LogLevel.ALL
                     }
                     install(JsonFeature) {
-                        serializer = KotlinxSerializer()
+                        serializer = KotlinxSerializer(kotlinx.serialization.json.Json{
+                            ignoreUnknownKeys = true
+                            coerceInputValues = true
+                        })
                     }
                 }
             )

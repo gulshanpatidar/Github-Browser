@@ -39,15 +39,15 @@ class GitServiceImpl(
         return Resource.Success(data = repoResponse)
     }
 
-    override suspend fun getBranches(username: String, repoName: String): List<BranchResponseItem> {
+    override suspend fun getBranches(username: String, repoName: String): Resource<List<BranchResponseItem>> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getIssues(username: String, repoName: String): List<IssueResponseItem> {
+    override suspend fun getIssues(username: String, repoName: String): Resource<List<IssueResponseItem>> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getCommits(username: String, repoName: String): List<CommitResponseItem> {
+    override suspend fun getCommits(username: String, repoName: String): Resource<List<CommitResponseItem>> {
         TODO("Not yet implemented")
     }
 }
