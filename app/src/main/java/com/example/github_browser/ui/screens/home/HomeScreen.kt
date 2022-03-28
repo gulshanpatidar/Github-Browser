@@ -31,29 +31,21 @@ import com.example.github_browser.ui.util.Routes
 @Composable
 fun HomeScreen(navController: NavHostController, viewModel: HomeViewModel) {
 
-    println("Kya haal hai")
-
     ScaffoldUse(
         topBarTitle = "Github Browser",
         onClickTopButton = { navController.navigate(Routes.AddRepo.route) },
     ) {
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
 
-            val username = "gulshanpatidar"
-            val repoName = "InstagramLight"
-
-//        viewModel.getRepoDetails(username = username, repoName = repoName)
-
-            val name by remember {
-                viewModel.name
-            }
-
+            //when this variable will change, add repo method will be called
             var buttonClicked by remember {
                 mutableStateOf(false)
             }
 
+            //snapshot variable to store the list of repos
             val repos = viewModel.gitRepos
 
+            //if the list is not empty then show the list
             if (repos.isNotEmpty()) {
                 LazyColumn(contentPadding = PaddingValues(16.dp)) {
                     items(repos.size) { index ->
@@ -93,6 +85,7 @@ fun HomeScreen(navController: NavHostController, viewModel: HomeViewModel) {
                     }
                 }
             } else {
+                //if the list if empty then show a button in the middle to add the repo
                 Box(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
@@ -124,12 +117,16 @@ fun HomeScreen(navController: NavHostController, viewModel: HomeViewModel) {
 
 }
 
+//this method will be used to send the intent, which will share the repo details with other app
 @Composable
 fun sendIntent(gitRepo: GitRepo) {
+
+    //get the necessary contexts and intent because it is an composable function and not an activity
     val context = LocalContext.current
     val activity = context.findActivity()
     val intent = activity?.intent
 
+    //create the intent
     val sendIntent = intent?.apply {
         action = Intent.ACTION_SEND
         putExtra(Intent.EXTRA_TEXT,"Repository name - ${gitRepo.name}\n Repository description - ${gitRepo.description}")
@@ -137,10 +134,12 @@ fun sendIntent(gitRepo: GitRepo) {
         type = "text/plain"
     }
 
+    //create the chooser and send the intent
     val shareIntent = Intent.createChooser(sendIntent,"Share Repository details")
     context.startActivity(shareIntent)
 }
 
+//this is an helper method for intent method
 private fun Context.findActivity(): Activity? = when(this){
     is Activity -> this
     is ContextWrapper -> baseContext.findActivity()

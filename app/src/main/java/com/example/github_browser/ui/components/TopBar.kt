@@ -14,6 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
+//composable for top app bar which has condition that if it is a home screen then show the add repo button, otherwise show the back button in the top app bar
+
 @Composable
 fun TopBar(
     title: String,

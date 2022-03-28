@@ -11,6 +11,7 @@ import io.ktor.client.features.logging.*
 
 interface GitService {
 
+    //these are the methods to get the response from the api
     suspend fun getRepos(username: String, repoName: String): Resource<GitRepoResponse>
 
     suspend fun getBranches(username: String, repoName: String): Resource<List<BranchResponseItem>>
@@ -19,6 +20,7 @@ interface GitService {
 
     suspend fun getCommits(username: String, repoName: String): Resource<List<CommitResponseItem>>
 
+    //method to create instance of the gitService
     companion object {
         fun create(): GitService {
             return GitServiceImpl(

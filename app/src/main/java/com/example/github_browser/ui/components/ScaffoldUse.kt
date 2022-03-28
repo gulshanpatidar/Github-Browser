@@ -8,6 +8,7 @@ import androidx.navigation.NavHostController
 import com.example.github_browser.ui.AppNavigation
 import com.example.github_browser.ui.util.Routes
 
+//this composable is for the scaffold which is used by the screens
 @Composable
 fun ScaffoldUse(
     topBarTitle: String,

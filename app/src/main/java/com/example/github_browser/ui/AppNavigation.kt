@@ -14,7 +14,10 @@ import com.example.github_browser.ui.util.Routes
 @Composable
 fun AppNavigation(navController: NavHostController) {
 
+    //create an single instance of homeViewModel
     val homeViewModel = viewModel<HomeViewModel>()
+
+    //create and navHost and add the different screens to it.
     NavHost(navController = navController, startDestination = Routes.Home.route){
 
         composable(route = Routes.Home.route){

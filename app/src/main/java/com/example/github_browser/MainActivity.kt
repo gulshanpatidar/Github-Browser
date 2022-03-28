@@ -22,6 +22,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
+                    //create the navController and call the AppNavigation to go to the desired screen according to NavHost
                     val navController = rememberNavController()
                     AppNavigation(navController = navController)
                 }
