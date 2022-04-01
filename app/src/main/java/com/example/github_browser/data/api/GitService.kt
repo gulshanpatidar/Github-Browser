@@ -18,7 +18,7 @@ interface GitService {
 
     suspend fun getIssues(username: String, repoName: String): Resource<List<IssueResponseItem>>
 
-    suspend fun getCommits(username: String, repoName: String): Resource<List<CommitResponseItem>>
+    suspend fun getCommits(username: String, repoName: String,branchName: String): Resource<List<CommitResponseItem>>
 
     //method to create instance of the gitService
     companion object {

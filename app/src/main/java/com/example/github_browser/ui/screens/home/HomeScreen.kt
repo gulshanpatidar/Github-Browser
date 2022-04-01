@@ -51,8 +51,15 @@ fun HomeScreen(navController: NavHostController, viewModel: HomeViewModel) {
                     items(repos.size) { index ->
                         Spacer(modifier = Modifier.height(8.dp))
                         Row(
-                            Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween
+                            Modifier
+                                .fillMaxWidth()
+                                .clickable{
+                                    val username = "gulshanpatidar"
+                                    val repoName = "NewsN"
+                                          navController.navigate(Routes.Detail.route + "/$username/$repoName")
+                                }
+                            ,
+                            horizontalArrangement = Arrangement.SpaceBetween,
                         ) {
                             Column(modifier = Modifier.width(280.dp)) {
                                 Text(
@@ -78,7 +85,7 @@ fun HomeScreen(navController: NavHostController, viewModel: HomeViewModel) {
                         }
                         Spacer(modifier = Modifier.height(8.dp))
                         Divider()
-                        if (buttonClicked){
+                        if (buttonClicked) {
                             buttonClicked = false
                             sendIntent(gitRepo = repos[index])
                         }
@@ -129,18 +136,21 @@ fun sendIntent(gitRepo: GitRepo) {
     //create the intent
     val sendIntent = intent?.apply {
         action = Intent.ACTION_SEND
-        putExtra(Intent.EXTRA_TEXT,"Repository name - ${gitRepo.name}\n Repository description - ${gitRepo.description}")
+        putExtra(
+            Intent.EXTRA_TEXT,
+            "Repository name - ${gitRepo.name}\n Repository description - ${gitRepo.description}"
+        )
         putExtra(Intent.EXTRA_ORIGINATING_URI, gitRepo.url)
         type = "text/plain"
     }
 
     //create the chooser and send the intent
-    val shareIntent = Intent.createChooser(sendIntent,"Share Repository details")
+    val shareIntent = Intent.createChooser(sendIntent, "Share Repository details")
     context.startActivity(shareIntent)
 }
 
 //this is an helper method for intent method
-private fun Context.findActivity(): Activity? = when(this){
+private fun Context.findActivity(): Activity? = when (this) {
     is Activity -> this
     is ContextWrapper -> baseContext.findActivity()
     else -> null
