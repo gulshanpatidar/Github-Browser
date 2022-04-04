@@ -21,8 +21,6 @@ fun AppNavigation(navController: NavHostController) {
 
     //create an single instance of homeViewModel
     val homeViewModel = viewModel<HomeViewModel>()
-    val detailViewModel = viewModel<DetailViewModel>()
-    val commitViewModel = viewModel<CommitViewModel>()
 
     //create and navHost and add the different screens to it.
     NavHost(navController = navController, startDestination = Routes.Home.route) {
@@ -45,6 +43,7 @@ fun AppNavigation(navController: NavHostController) {
         ) { backStackEntry ->
             val username = backStackEntry.arguments?.getString("username").toString()
             val repoName = backStackEntry.arguments?.getString("repoName").toString()
+            val detailViewModel = viewModel<DetailViewModel>()
             DetailScreen(
                 navController = navController,
                 viewModel = detailViewModel,
@@ -58,13 +57,16 @@ fun AppNavigation(navController: NavHostController) {
         }
 
         composable(
-            route = Routes.Commit.route + "{branchName}",
+            route = Routes.Commit.route + "/{branchName}",
             arguments = listOf(
                 navArgument("branchName"){
                     NavType.StringType
                 }
             )
         ) { backStackEntry ->
+
+            val commitViewModel = viewModel<CommitViewModel>()
+
             val branchName = backStackEntry.arguments?.getString("branchName").toString()
             CommitScreen(navController = navController, viewModel = commitViewModel, branchName = branchName)
         }

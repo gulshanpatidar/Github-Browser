@@ -8,13 +8,17 @@ import com.example.github_browser.ui.models.GitIssue
 import io.ktor.http.cio.*
 import kotlinx.coroutines.launch
 
-class DetailViewModel: ViewModel() {
+class DetailViewModel(private val username: String,private val repoName: String): ViewModel() {
 
     private val gitService = GitService.create()
 
     val branches = mutableStateListOf<String>()
 
     val issues = mutableStateListOf<GitIssue>()
+
+    init {
+        getBranches(username = username, repoName = repoName)
+    }
 
     fun getBranches(username: String, repoName: String){
         viewModelScope.launch {
